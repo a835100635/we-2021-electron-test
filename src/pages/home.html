@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>we-2021</we-2021></title>
+    <link rel="stylesheet" href="../dist/css/style.css" />
+    <style>
+      body {
+        margin: 0 10px;
+      }
+
+      .editor-toolbar {
+        border: 1px solid #ccc;
+      }
+
+      .editor-text-area {
+        border: 1px solid #ccc;
+        border-top: 0;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>electron-使用 we-2021</h1>
+    <p>
+      <button id="refresh">刷新页面重新加载</button>
+    </p>
+
+    <!-- 编辑器 -->
+    <div>
+      <div id="editor-toolbar" class="editor-toolbar"></div>
+      <div id="editor-text-area" class="editor-text-area"></div>
+    </div>
+    
+    <script src="../dist/index.js"></script>
+    <script>
+      const E = window.wangEditor;
+      console.log("wangEditor===>", E);
+
+      const editorConfig = {};
+      editorConfig.onCreated = (editor) => {
+        console.log("on created", editor);
+      };
+
+      // 先创建 editor ，再创建 toolbar
+      const editor = E.createEditor({
+        textareaSelector: "#editor-text-area",
+        config: editorConfig,
+        content: window.content1,
+      });
+      const toolbar = E.createToolbar({
+        editor,
+        toolbarSelector: "#editor-toolbar",
+      });
+
+      const { ipcRenderer } = require("electron");
+      console.log("electron====>", require("electron"));
+
+      document.getElementById("refresh").onclick = () => {
+        console.log("刷新页面");
+        ipcRenderer.send("params", "刷新窗口");
+      };
+    </script>
+  </body>
+</html>
