@@ -26,6 +26,7 @@
     <h1>electron-使用 we-2021</h1>
     <p>
       <button id="refresh">刷新页面重新加载</button>
+      <button id="open">新开窗口 浏览在线wangEditor examples</button>
     </p>
 
     <!-- 编辑器 -->
@@ -62,6 +63,9 @@
         console.log("刷新页面");
         ipcRenderer.send("params", "刷新窗口");
       };
+      document.getElementById('open').onclick = () => {
+        window.open('http://106.12.198.214:8882/main/examples/');
+      }
     </script>
   </body>
 </html>
